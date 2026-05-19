@@ -1,7 +1,7 @@
 @echo off
 REM إعداد سريع لرفع المشروع على GitHub
-SET USERNAME=<USERNAME>
-SET REPO=<REPO>
+SET USERNAME=phmohammad84-svg
+SET REPO=alhussein
 
 IF "%USERNAME%"=="<USERNAME>" (
   echo يرجى تحرير deploy.bat وتعبئة USERNAME وREPO
@@ -24,8 +24,10 @@ if errorlevel 1 goto git_error
 git branch -M main
 if errorlevel 1 goto git_error
 
-git remote add origin https://github.com/%USERNAME%/%REPO%.git
-if errorlevel 1 goto git_error
+git remote get-url origin >nul 2>nul || (
+  git remote add origin https://github.com/%USERNAME%/%REPO%.git
+  if errorlevel 1 goto git_error
+)
 
 git push -u origin main
 if errorlevel 1 goto git_error
