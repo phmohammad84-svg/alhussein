@@ -647,3 +647,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
 console.log('الحسين - موقع متجر الملابس الداخلية الفاخرة');
 console.log('جميع الحقوق محفوظة 2026');
+
+// ============================================
+// Hide/Show Navbar on Scroll (Mobile Friendly)
+// ============================================
+
+let lastScrollTop = 0;
+const navbar = document.querySelector('.navbar');
+let scrollTimeout;
+
+window.addEventListener('scroll', function() {
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Clear the timeout to prevent rapid toggling
+    clearTimeout(scrollTimeout);
+    
+    scrollTimeout = setTimeout(function() {
+        if (currentScroll > lastScrollTop) {
+            // Scrolling DOWN - hide navbar
+            if (navbar && !navbar.classList.contains('navbar-hidden')) {
+                navbar.classList.add('navbar-hidden');
+            }
+        } else {
+            // Scrolling UP - show navbar
+            if (navbar && navbar.classList.contains('navbar-hidden')) {
+                navbar.classList.remove('navbar-hidden');
+            }
+        }
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+    }, 100); // Debounce for 100ms
+});
